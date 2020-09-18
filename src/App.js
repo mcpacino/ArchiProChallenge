@@ -61,7 +61,7 @@ function App({data, column, direction, toggleSortState, filter, onFilterChanged}
       <main className="App-content">
         <Container>
           <Row>
-            <Col style={{textAlign: 'left', padding: '10px'}}>
+            <Col style={{textAlign: 'left', padding: '10px', paddingLeft: '25px'}}>
               Search:
               &nbsp;
               <input value={filter || ''}
