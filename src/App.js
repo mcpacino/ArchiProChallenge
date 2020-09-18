@@ -61,12 +61,14 @@ function App({data, column, direction, toggleSortState, filter, onFilterChanged}
       <main className="App-content">
         <Container>
           <Row>
-            <Col>
-              filter:
+            <Col style={{textAlign: 'left', padding: '10px'}}>
+              Search:
+              &nbsp;
               <input value={filter || ''}
                      onChange={(e) => {
                        onFilterChanged && onFilterChanged(e.target.value);
                      }}
+                     style={{width: '500px'}}
               />
             </Col>
           </Row>
