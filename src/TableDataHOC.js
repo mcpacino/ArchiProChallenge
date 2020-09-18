@@ -18,7 +18,26 @@ export function TableDataHoc(WrappedComponent, data) {
         data: data,
         column: null,
         direction: null,
+        filter: '',
       };
+    }
+
+    processData = (data, column, direction, filter) => {
+      let newData = [...data];
+      filter = filter.toLocaleLowerCase();
+
+      newData = lodash.filter(newData, function(o) {
+        return o.name.toLocaleLowerCase().includes(filter) || o.phone.toLocaleLowerCase().includes(filter) || o.email.toLocaleLowerCase().includes(filter);
+      })
+
+      if (direction !== null) {
+        newData = lodash.sortBy(data, [column]);
+        if (direction === 'za') {
+          newData = lodash.reverse(newData);
+        }
+      }
+
+      return newData;
     }
 
     toggleSortState = (column) => {
@@ -35,18 +54,20 @@ export function TableDataHoc(WrappedComponent, data) {
         direction = 'az';
       }
 
-      let newData = data;
-      if (direction !== null) {
-        newData = lodash.sortBy(data, [column]);
-        if (direction === 'za') {
-          newData = lodash.reverse(newData);
-        }
-      }
+      const newData = this.processData(data, column, direction, this.state.filter);
 
       this.setState({
         data: newData,
         column,
         direction
+      })
+    }
+
+    onFilterChanged = (filter) => {
+      const newData = this.processData(data, this.state.column, this.state.direction, filter);
+      this.setState({
+        data: newData,
+        filter,
       })
     }
 
@@ -57,6 +78,8 @@ export function TableDataHoc(WrappedComponent, data) {
         column={this.state.column}
         direction={this.state.direction}
         toggleSortState={this.toggleSortState}
+        filter={this.state.filter}
+        onFilterChanged={this.onFilterChanged}
       />;
     }
   };

@@ -9,7 +9,7 @@ import logo from './archipro_dev.webp';
 import {TableDataHoc} from './TableDataHOC';
 import {SortButton} from './SortButton';
 
-function App({data, column, direction, toggleSortState}) {
+function App({data, column, direction, toggleSortState, filter, onFilterChanged}) {
   const getTable = () => {
     return (
       <Table className="App-table">
@@ -23,12 +23,14 @@ function App({data, column, direction, toggleSortState}) {
           <th>
             Email
             &nbsp;
-            <SortButton currentColumn={'email'} column={column} direction={direction} toggleSortState={toggleSortState}/>
+            <SortButton currentColumn={'email'} column={column} direction={direction}
+                        toggleSortState={toggleSortState}/>
           </th>
           <th>
             Contact Number
             &nbsp;
-            <SortButton currentColumn={'phone'} column={column} direction={direction} toggleSortState={toggleSortState}/>
+            <SortButton currentColumn={'phone'} column={column} direction={direction}
+                        toggleSortState={toggleSortState}/>
           </th>
         </tr>
         </thead>
@@ -58,6 +60,16 @@ function App({data, column, direction, toggleSortState}) {
       </header>
       <main className="App-content">
         <Container>
+          <Row>
+            <Col>
+              filter:
+              <input value={filter || ''}
+                     onChange={(e) => {
+                       onFilterChanged && onFilterChanged(e.target.value);
+                     }}
+              />
+            </Col>
+          </Row>
           <Row>
             <Col>
               {getTable()}
