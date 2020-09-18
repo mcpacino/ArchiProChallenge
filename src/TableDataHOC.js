@@ -21,7 +21,7 @@ export function TableDataHoc(WrappedComponent, data) {
           direction = 'za';
         } else {
           direction = null;
-        };
+        }
       } else {
         direction = 'az';
       }
