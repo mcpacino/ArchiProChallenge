@@ -24,7 +24,13 @@ export function TableDataHoc(WrappedComponent, data) {
         };
       }
 
-      const newData = lodash.sortBy(data, [column]);
+      let newData = data;
+      if (direction !== null) {
+        newData = lodash.sortBy(data, [column]);
+        if (direction === 'za') {
+          newData = lodash.revert(newData);
+        }
+      }
 
       this.setState({
         data: newData,
