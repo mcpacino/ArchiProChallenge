@@ -33,7 +33,7 @@ export function TableDataHoc(WrappedComponent, data) {
       })
 
       if (direction !== null) {
-        newData = lodash.sortBy(data, [column]);
+        newData = lodash.sortBy(newData, [column]);
         if (direction === 'za') {
           newData = lodash.reverse(newData);
         }
