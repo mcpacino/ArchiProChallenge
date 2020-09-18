@@ -6,7 +6,9 @@ import './App.css';
 import data from './api/data.json';
 import logo from './archipro_dev.webp';
 
-function App() {
+import {TableDataHoc} from './TableDataHOC';
+
+function App({data}) {
   const getTable = () => {
     return (
       <Table className="App-table">
@@ -54,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default TableDataHoc(App, data);
