@@ -1,4 +1,5 @@
 import React from 'react';
+import lodash from 'lodash';
 
 export function TableDataHoc(WrappedComponent, data) {
   return class extends React.Component {
@@ -6,24 +7,40 @@ export function TableDataHoc(WrappedComponent, data) {
       super(props);
       this.state = {
         data: data,
-        sortState: {
-          column: null,
-          direction: 'az',
-        }
+        column: null,
+        direction: null,
       };
     }
 
-    handleChange() {
+    toggleSortState = (column) => {
+      let direction = this.state.direction;
+      if (this.state.column === column) {
+        if (!direction) {
+          direction = 'az';
+        } else if (direction === 'az') {
+          direction = 'za';
+        } else {
+          direction = null;
+        };
+      }
+
+      const newData = lodash.sortBy(data, [column]);
+
       this.setState({
-        // data: selectData(DataSource, this.props)
-      });
+        data: newData,
+        column,
+        direction
+      })
     }
 
     render() {
-      // ... and renders the wrapped component with the fresh data!
-      // Notice that we pass through any additional props
-      return <WrappedComponent data={this.state.data} {...this.props} />;
+      return <WrappedComponent
+        {...this.props}
+        data={this.state.data}
+        column={this.state.column}
+        direction={this.state.direction}
+        toggleSortState={this.toggleSortState}
+      />;
     }
   };
-
 }
