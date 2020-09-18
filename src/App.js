@@ -1,34 +1,32 @@
-import React, { Component } from 'react';
-import { Container, Row, Col, Table } from 'reactstrap';
+import React from 'react';
+import {Container, Row, Col, Table} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 import data from './api/data.json';
 import logo from './archipro_dev.webp';
 
-class App extends Component {
-
-
-  getTable() {
+function App() {
+  const getTable = () => {
     return (
       <Table className="App-table">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Contact Number</th>
-          </tr>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact Number</th>
+        </tr>
         </thead>
         <tbody>
-          {this.getRow()}
+        {getRow()}
         </tbody>
       </Table>
     );
   }
 
-  getRow() {
+  const getRow = () => {
     return data.map(
-      ({ _id, name, email, phone }) => (
+      ({_id, name, email, phone}) => (
         <tr key={_id}>
           <td>{name}</td>
           <td>{email}</td>
@@ -38,25 +36,22 @@ class App extends Component {
     )
   }
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-        <main className="App-content">
-          <Container>
-            <Row>
-              <Col>
-              {this.getTable()}
-              </Col>
-            </Row>
-          </Container>
-
-        </main>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo"/>
+      </header>
+      <main className="App-content">
+        <Container>
+          <Row>
+            <Col>
+              {getTable()}
+            </Col>
+          </Row>
+        </Container>
+      </main>
+    </div>
+  );
 }
 
 export default App;
