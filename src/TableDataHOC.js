@@ -1,7 +1,7 @@
 import React from 'react';
 import lodash from 'lodash';
 
-// This HOC maintains sort mode and sorted data, and handles toggling the sort mode.
+// This HOC maintains filter, sort mode and processed data, and handles toggling the sort mode.
 // Props (in):
 //   WrappedComponent: the original table component.
 //   data: the original data of the table.
@@ -10,6 +10,8 @@ import lodash from 'lodash';
 //    column: column by which the data is sorted
 //    direction: sort direction. 'az' / 'za' / null
 //    toggleSortState: handler for toggle sort mode.
+//    filter: filter
+//    onFilterChanged: to update filter
 export function TableDataHoc(WrappedComponent, data) {
   return class extends React.Component {
     constructor(props) {
