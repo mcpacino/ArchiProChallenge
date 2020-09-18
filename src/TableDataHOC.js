@@ -22,13 +22,15 @@ export function TableDataHoc(WrappedComponent, data) {
         } else {
           direction = null;
         };
+      } else {
+        direction = 'az';
       }
 
       let newData = data;
       if (direction !== null) {
         newData = lodash.sortBy(data, [column]);
         if (direction === 'za') {
-          newData = lodash.revert(newData);
+          newData = lodash.reverse(newData);
         }
       }
 
